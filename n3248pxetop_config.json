@@ -1,0 +1,22 @@
+{
+    "MGMT_INTERFACE": {
+        "eth0": {},
+        "eth0|192.168.10.249.251/24": {
+            "gwaddr": "192.168.10.1"
+        }
+    },
+    "MGMT_PORT": {
+        "eth0": {
+            "admin_status": "up",
+            "autoneg": "true",
+            "description": "Management0",
+            "mtu": "1500",
+            "speed": "100"
+        }
+    },
+    "MGMT_VRF_CONFIG": {
+        "vrf_global": {
+            "mgmtVrfEnabled": "true"
+        }
+    }
+}
