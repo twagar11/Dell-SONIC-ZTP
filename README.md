@@ -14,23 +14,23 @@
 [ztp-ent-stand.json and ztp-lite.json files](#ztp-ent-stand.json-and-ztp-lite.json-files)  
 [Switch Specific config_db.json files](#switch-specific-config_db.json-files)  
 
-### General Information
+### General Information [(Goto TOC)](#table-of-contents)  
 - Instructions and sample files to show the operation of Dell SONiC ZTP (Zero Touch Provisioning) using TPCM (Third Party Container Management) to install basic docker conatainers for DHCP and TFTP services on a Dell SONiC switch.  Prior to the infrastructure being setup the MAC address of each switch needs to be recorded either from the label on the cardboard or the pull out tab from each switch.  The MAC address will be leveraged in the DHCP scope to assign specific json switch configuration files to each specific switch.  Some Dell Ethernet switch models like the S5448 ship from the factory with legacy OS10 switch softare installed.  DHCP and ONIE can be leveraged to automatically remove OS10 and install SONiC.
 
-### Cautionary Notes
+### Cautionary Notes  [(Goto TOC)](#table-of-contents)  
 - All references to SONiC refer to Dell SONiC which is slightly different from the Community version of SONiC.
 - Dell Enterprsie SONiC (DES) is intended to run on Dell as well as a small number of 3rd party Ethernet switches.
 - ZTP and ZTD are used interchangably and refer to the same automated process
 - On a test switch the SONIC-CLI should be used to create the basic switch running-config ( /etc/sonic/config_db.json ). Dell recommends NOT to directly edit the switch config_db.json file as there are often many interdependencies and also there is no error checking.
 
-### Reference Documents
+### Reference Documents [(Goto TOC)](#table-of-contents)  
 - OS10 Third Party NOS Install Guide = detailed information for automatically uninstalling OS10 and installing a third party switch OS like Dell SONiC
 - ZTD SONiC white paper = detaied information for Dell SONiC Zero Touch Deployment
 
-### Software Versions
+### Software Versions  [(Goto TOC)](#table-of-contents)  
 - Dell SONiC version 4.4.0
 
-### Prep Switch for DHCP and TFTP Containers
+### Prep Switch for DHCP and TFTP Containers  [(Goto TOC)](#table-of-contents)  
 - This step can be skipped if DHCP and TFTP servers already exist and you do not wish to install them on a Dell switch  
 
 - Create ZTP directory structure on switch running DHCP and TFTP containers, change permissions, and SCP files
