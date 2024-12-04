@@ -27,8 +27,8 @@
 - OS10 Third Party NOS Install Guide = detailed information for automatically uninstalling OS10 and installing a third party switch OS like Dell SONiC
 - ZTD SONiC white paper = detaied information for Dell SONiC Zero Touch Deployment
 
-### Software Versions    
-  [(Goto TOC)](#table-of-contents)  
+[(Goto TOC)](#table-of-contents) ### Software Versions   
+  
 - Dell SONiC version 4.4.0
 
 ### Prep Switch for DHCP and TFTP Containers  [(Goto TOC)](#table-of-contents)  
