@@ -7,6 +7,7 @@
 - [Reference Documents](#reference-documents)
 - [Software Versions](#software-versions)
 - [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)
+- [Install DHCP and TFTP Containers on Dell SONiC Switch](#install-dhcp-and-tftp-containers-on-dell-sonic-switch)
 - [Auto Remove OS10 and Install SONiC](#auto-remove-os10-and-install-sonic)
 - [Dell SONiC ZTP](#dell-sonic-ztp)
 
@@ -64,6 +65,60 @@
   - ! copy dhcpd.conf file to TPCM switch /home/admin/data/ directory
     ! if dhcpd.conf is not copied before dhcp docker container installed the service will fail
     /home/admin/data/dhcpd.conf
+
+### Install DHCP and TFTP Containers on Dell SONiC Switch
+  - Dell SONiC TPCM Tips and Tricks
+    ! TPCM container is not installed by default with SONIC base image
+    ! All third party containers automatically start during fast, warm, and cold system reboots. After TPC image is loaded upon reboots TPC service starts automatically by the system manager
+    ! A SONIC image upgrade seamlessly migrates all currently installed third-party containers into the newly installed SONIC image
+    ! A TPC image can be ugraded independently of a SONIC image upgrade.
+    ! You can install more than one light weight TPC container image on SONIC 
+    ! By default TPC uses the default VRF to see user ports and OOB ports for DHCP services
+    ! For ease of configuration don’t use vrf mgmt. for management 0
+    ! if only desire dhcp services on OOB network then using vrf mgmt can be used
+    ! If dhcp TPC is not on same layer 2 network then configure DHCP relay (ip helper as needed)
+
+  - ! TFTP container installation and auto start
+    ! docker “args” = used to publish the container’s port to the switch to allow external connections as well as the switch installation directory
+    ! if the switch has a vrf mgmt then must specify that as well
+    ! may have to run command more than once if fails the first time until receive SUCCESS
+    S5448top1# tpcm install name tftpd pull pghalliday/tftp args "-p 0.0.0.0:69:69/udp -v /var/tftpboot:/var/tftpboot --network=host" 
+    ! OR if using vrf mgmt
+    S5448top1# tpcm install name tftpd pull pghalliday/tftp args "-p 0.0.0.0:69:69/udp -v /var/tftpboot:/var/tftpboot --network=host"  vrf-name mgmt
+
+    !Pulling the TPC-tftpd image.
+    !Auto starting the TPC-tftpd
+    ![ SUCCESS ] Installation complete
+
+  - ! DHCP container installation and auto start
+    ! container will advertise automatically on the OOB port <mgmt vrf> without specifying <mgmt vrf> with command parameters
+    S5248F-ON-01# tpcm install name isc_dhcp pull networkboot/dhcpd args "-v /home/admin/data:/data --network=host --security-opt seccomp=unconfined –memory=1000M"
+
+    ! mgmt vrf is enabled, hence pulling through mgmt vrf
+    ! Pulling the TPC-isc_dhcp image.
+    ! Auto starting the TPC-isc_dhcp
+    ! [ SUCCESS ] Installation complete
+
+  - ! Troubleshooting commands from sonic-cli
+    # show tpcm list
+    # show tpcm name isc_dhcp
+    # ls /var/tftpboot ; same as SONIC shell $ ls /var/tftpboot/
+
+  - ! Troubleshooting commands from bash-shell
+    $ systemctl status
+    $ docker images ls -a
+    $ docker images list -all
+    $ cat /var/log/syslog | grep dhcp | more ; review messages for troubleshooting
+    $ docker ps
+    $ sudo docker ps -all 
+    $ sudo docker ps -a 
+    $ docker ps --format "table {{.Image}}\t{{.Names}}\t{{.Size}}"
+    $ docker logs <container id>
+    $ sudo tpcm list
+    $ sudo docker restart tftpd ; better to use docker ID instead of name
+    $ sudo docker restart isc-dhcp ; better to use the docker ID instead of name
+    $ sudo docker restart <container id> 
+    $ docker exec -it tftpd /bin/sh
 
 ### Auto Remove OS10 and Install SONiC
 - Some Dell Ethernet switches ship with legacy OS10. The DHCP scope sample file can be used to automatically remove OS10 and install SONiC
