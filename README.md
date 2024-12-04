@@ -15,7 +15,8 @@
 - Instructions and sample files to show the operation of Dell SONiC ZTP (Zero Touch Provisioning) using TPCM (Third Party Container Management) to install basic docker conatainers for DHCP and TFTP services on a Dell SONiC switch.  Prior to the infrastructure being setup the MAC address of each switch needs to be recorded either from the label on the cardboard or the pull out tab from each switch.  The MAC address will be leveraged in the DHCP scope to assign specific json switch configuration files to each specific switch.  Some Dell Ethernet switch models like the S5448 ship from the factory with legacy OS10 switch softare installed.  DHCP and ONIE can be leveraged to automatically remove OS10 and install SONiC.
 
 ### Cautionary Notes
-- All references to SONiC refer to Dell SONiC which is slightly different from the Community version of SONiC.  Dell Enterprsie SONiC (DES) is intended to run on Dell as well as a small number of 3rd party Ethernet switches.
+- All references to SONiC refer to Dell SONiC which is slightly different from the Community version of SONiC.
+- Dell Enterprsie SONiC (DES) is intended to run on Dell as well as a small number of 3rd party Ethernet switches.
 - ZTP and ZTD are used interchangably and refer to the same automated process
 
 ### Reference Documents
@@ -29,16 +30,16 @@
 - This step can be skipped if DHCP and TFTP servers already exist and you do not wish to install them on a Dell switch
 
 - Create ZTP directory structure on switch running DHCP and TFTP containers, change permissions, and SCP files
-  - ! create /var/tftpboot/ root directory for tftp server
-    $ sudo mkdir /var/tftpboot/ ; default tftp download directory
-    $sudo mkdir /home/admin/data/ ; exact directory needed for tftp docker container and TPCM
+  - create /var/tftpboot/ root directory for tftp server
+  - $ sudo mkdir /var/tftpboot/ ; default tftp download directory
+  - $s udo mkdir /home/admin/data/ ; exact directory needed for tftp docker container and TPCM
 
-  - ! change ownership and permission on apache2 http server or TFTP server
-    $ sudo chown -R admin /var/www/html/
-    $ sudo chown -R admin /var/tftpboot/
-    $ sudo chown -R admin /home/admin/data/
+  - change ownership and permission on apache2 http server or TFTP server
+  - $ sudo chown -R admin /var/www/html/
+  - $ sudo chown -R admin /var/tftpboot/
+  - $ sudo chown -R admin /home/admin/data/
 
-  - ! change permissions so admin owner can read, write, execute, and group can read and execute 
+  - change permissions so admin owner can read, write, execute, and group can read and execute 
     $sudo chmod -R 755 /var/tftpboot/
     $sudo chmod -R 755 /var/www/html/
     $sudo chmod -R 755 /home/admin/data/ ; highest permission level if needed
