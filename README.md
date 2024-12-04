@@ -73,7 +73,7 @@
   - if dhcpd.conf is not copied before dhcp docker container installed the service will fail  
     /home/admin/data/dhcpd.conf  
 
-### Install DHCP and TFTP Containers on Dell SONiC Switch  
+### Install DHCP and TFTP Containers on Dell SONiC Switch  [(Goto TOC)](#table-of-contents)  
   - Dell SONiC TPCM Tips and Tricks  
   - TPCM container is not installed by default with SONIC base image  
   - All third party containers automatically start during fast, warm, and cold system reboots. After TPC image is loaded upon reboots TPC service starts automatically by the system manager  
@@ -127,7 +127,7 @@
       $ sudo docker restart <container id>  
       $ docker exec -it tftpd /bin/sh  
 
-### Auto Remove OS10 and Install SONiC  
+### Auto Remove OS10 and Install SONiC  [(Goto TOC)](#table-of-contents)  
 - Some Dell Ethernet switches ship with legacy OS10. The DHCP scope sample file can be used to automatically remove OS10 and install SONiC  
 - Once SONiC is pushed to the switch the switch will reboot and begin the SONiC ZTP process  
 - OS10 ZTD with DHCP option 67 (TFTP boot filename) and 114 (default URL) must be received thru the switch mgmt port not the front panel ports  
@@ -141,24 +141,24 @@
     - auto method via DHCP docker container http://192.168.10.200/onie-installer.bin  
     - must rename SONIC binary to "onie-installer.bin" per the file naming convention and waterfall effect in OS10 3rd party NOS install doc  
 
-### Dell SONiC ZTP  
+### Dell SONiC ZTP  [(Goto TOC)](#table-of-contents)  
 - The MAC address should be recorded or scanned during install.  It is located on the outside of the switch cardboard box and also on the switch pull out plastic tag.  
 - ZTP will push a basic running-config file and the anchor image version of the SONiC binary to each switch to provide network reachability  
 - On a test switch the SONIC-CLI should be used to create the basic switch running-config ( /etc/sonic/config_db.json ). Dell recommends NOT to directly edit the switch config_db.json file as there are often many interdependencies and also there is no error checking.  
 - Then Ansible or some other automation tool can manage the complete switch config for each individual switch
   
-### DHCP setup
+### DHCP setup  [(Goto TOC)](#table-of-contents)  
 - The DHCP server (Dell switch with TPCM or other) must be setup for directories, permissions, files per above [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)  
 - The dhcpd.conf will only create a fixed IP address for the switch OOB port, Management0 and push the proper SONiC software version  
 - In the case of a switch which is preloaded with OS10 the onie-installer.bin file needs to have this filename is a renamed version of the SONiC binary based on switch model.  
 - The sample dhcpd.conf is separated into groups to push the proper SONiC binary to specific switches based on switch model type.  
 
-### ztp-ent-stand.json and ztp-lite.json files  
+### ztp-ent-stand.json and ztp-lite.json files [(Goto TOC)](#table-of-contents)   
 - During Dell SONiC ZTP the ztp.json provides the proper SONiC binary version based on switch model and a dymanic URL for a switch specific running-config file (config_db.sjon)  
 - This example uses ztp-ent-stand.json (S5248) and ztp-lite.json (E3248P) because each switch model must receive a different SONiC binary  
 - If the SONIC binary version equals the running version on the switch it will only download the image and silently discard the image  
 
-### Switch Specific config_db.json files  
+### Switch Specific config_db.json files  [(Goto TOC)](#table-of-contents)  
 - The TFTP server (Dell switch with TPCM or other) must be setup for directories, permissions, files per above [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)  
 - Each switch will have a unique config_db.json with the hostname as the prefix  
 - The <hostname>_config_db_.json will be copied to each switch /etc/sonic/config_db.json  
