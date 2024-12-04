@@ -1,15 +1,15 @@
 # Dell-SONIC-ZTP-with-TPCM
-> Instructions and sample files for Dell SONIC ZTP (Zero Touch Provisioning)
+> Instructions and sample files for Dell SONIC ZTP (Zero Touch Provisioning) with DHCP and TFTP as Docker containers
 
 ## TABLE of CONTENTS
-  [General Information](#general-information)  
-  [Cautionary Notes](#cautionary-notes)  
-  [Reference Documents](#reference-documents)  
-  [Software Versions](#software-versions)  
+[General Information](#general-information)  
+[Cautionary Notes](#cautionary-notes)  
+[Reference Documents](#reference-documents)  
+[Software Versions](#software-versions)  
 [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)  
-- [Install DHCP and TFTP Containers on Dell SONiC Switch](#install-dhcp-and-tftp-containers-on-dell-sonic-switch)
-- [Auto Remove OS10 and Install SONiC](#auto-remove-os10-and-install-sonic)
-- [Dell SONiC ZTP](#dell-sonic-ztp)
+[Install DHCP and TFTP Containers on Dell SONiC Switch](#install-dhcp-and-tftp-containers-on-dell-sonic-switch)  
+[Auto Remove OS10 and Install SONiC](#auto-remove-os10-and-install-sonic)  
+[Dell SONiC ZTP](#dell-sonic-ztp)  
 
 ### General Information
 - Instructions and sample files to show the operation of Dell SONiC ZTP (Zero Touch Provisioning) using TPCM (Third Party Container Management) to install basic docker conatainers for DHCP and TFTP services on a Dell SONiC switch.  Prior to the infrastructure being setup the MAC address of each switch needs to be recorded either from the label on the cardboard or the pull out tab from each switch.  The MAC address will be leveraged in the DHCP scope to assign specific json switch configuration files to each specific switch.  Some Dell Ethernet switch models like the S5448 ship from the factory with legacy OS10 switch softare installed.  DHCP and ONIE can be leveraged to automatically remove OS10 and install SONiC.
@@ -27,16 +27,16 @@
 - Dell SONiC version 4.4.0
 
 ### Prep Switch for DHCP and TFTP Containers
-- This step can be skipped if DHCP and TFTP servers already exist and you do not wish to install them on a Dell switch
+- This step can be skipped if DHCP and TFTP servers already exist and you do not wish to install them on a Dell switch  
 
 - Create ZTP directory structure on switch running DHCP and TFTP containers, change permissions, and SCP files
-  - create /var/tftpboot/ root directory for tftp server
-  - $ sudo mkdir /var/tftpboot/ ; default tftp download directory
-  - $s udo mkdir /home/admin/data/ ; exact directory needed for tftp docker container and TPCM
+      create /var/tftpboot/ root directory for tftp server  
+      $ sudo mkdir /var/tftpboot/ ; default tftp download directory
+      $ sudo mkdir /home/admin/data/ ; exact directory needed for tftp docker container and TPCM  
 
   - change ownership and permission on apache2 http server or TFTP server
   - $ sudo chown -R admin /var/www/html/
-  - $ sudo chown -R admin /var/tftpboot/
+  - $ sudo chwn -R admin /var/tftpboot/
   - $ sudo chown -R admin /home/admin/data/
 
   - change permissions so admin owner can read, write, execute, and group can read and execute 
