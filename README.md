@@ -5,7 +5,7 @@
 [General Information](#general-information)  
 [Cautionary Notes](#cautionary-notes)  
 [Reference Documents](#reference-documents)  
-[Software Versions](#Software-Versions)  
+[Software Versions](#software-versions)  
 [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)  
 [Install DHCP and TFTP Containers on Dell SONiC Switch](#install-dhcp-and-tftp-containers-on-dell-sonic-switch)  
 [Auto Remove OS10 and Install SONiC](#auto-remove-os10-and-install-sonic)  
