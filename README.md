@@ -2,9 +2,9 @@
 > Instructions and sample files for Dell SONIC ZTP (Zero Touch Provisioning)
 
 ## TABLE of CONTENTS
-  [General Information](#general-information)
-  [Cautionary Notes](#cautionary-notes)
-  [Reference Documents](#reference-documents)
+  [General Information](#general-information)  
+  [Cautionary Notes](#cautionary-notes)  
+  [Reference Documents](#reference-documents)  
 - [Software Versions](#software-versions)
 - [Prep Switch for DHCP and TFTP Containers](#prep-switch-for-dhcp-and-tftp-containers)
 - [Install DHCP and TFTP Containers on Dell SONiC Switch](#install-dhcp-and-tftp-containers-on-dell-sonic-switch)
